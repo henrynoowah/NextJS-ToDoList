@@ -59,7 +59,7 @@ const TodoListLastNumber = styled.p`
   }
 `;
 
-const List = styled.div`
+const List = styled.ul`
   .todo-item {
     display: flex;
     justify-content: space-between;
@@ -77,7 +77,7 @@ const List = styled.div`
         width: 12px;
         height: 100%;
       }
-      .chekced-todo-text {
+      .checked-todo-text {
         color: ${palette.gray};
         text-decoration: line-through;
       }
@@ -140,6 +140,10 @@ const TodoList: FC<IProps> = ({ todos }) => {
   const todoColorNums = useMemo(getTodoColorNums, [todos]);
   console.log(todoColorNums);
 
+  todos.forEach((todo) => {
+    console.log(todo.checked);
+  });
+
   return (
     <Container>
       <TodoHeader>
@@ -156,20 +160,16 @@ const TodoList: FC<IProps> = ({ todos }) => {
         </div>
       </TodoHeader>
       <List>
-        <ul>
-          {todos.map((todo) => (
-            <li className="todo-item" key={todo.id}>
-              <div className="todo-left-side">
-                <div className={`todo-color-block bg-${todo.color}`} />
-                <p
-                  className={`todo-text ${todo.checked && "checked-todo-text"}`}
-                >
-                  {todo.text}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {todos.map((todo) => (
+          <li className="todo-item" key={todo.id}>
+            <div className="todo-left-side">
+              <div className={`todo-color-block bg-${todo.color}`} />
+              <p className={`todo-text ${todo.checked && "checked-todo-text"}`}>
+                {todo.text}
+              </p>
+            </div>
+          </li>
+        ))}
       </List>
     </Container>
   );

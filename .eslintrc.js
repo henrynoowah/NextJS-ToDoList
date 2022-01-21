@@ -19,6 +19,7 @@ module.exports = {
     'react',
     '@typescript-eslint',
   ],
+
   rules: {
     quotes: ["error", "double"],
     "@typescript-eslint/quotes": ["error", "double"],
@@ -56,6 +57,14 @@ module.exports = {
         jsx: "never",
         ts: "never",
         tsx: "never"
+      },
+    ],
+    // 빌드시 airbnb function component 에러 해결
+    "react/function-component-definition": [
+      2,
+      {
+        namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
       },
     ],
   },
