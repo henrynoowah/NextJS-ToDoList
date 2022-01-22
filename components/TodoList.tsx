@@ -168,7 +168,6 @@ const TodoList: FC<IProps> = ({ todos }) => {
   }, [todos]);
 
   const todoColorNums = useMemo(getTodoColorNums, [todos]);
-  console.log(todoColorNums);
 
   return (
     <Container>
