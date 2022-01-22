@@ -180,7 +180,7 @@ const TodoList: FC<IProps> = ({ todos }) => {
           {Object.keys(todoColorNums).map((color, index) => (
             <div className="todo-list-header-color-num" key={index}>
               <div className={`todo-list-header-round-color bg-${color}`} />
-              <p>{todoColorNums[color]}개</p>
+              <p> {todoColorNums[color]}개</p>
             </div>
           ))}
         </div>
