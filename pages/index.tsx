@@ -1,8 +1,10 @@
-import { GetServerSideProps, NextPage } from "next";
+import { NextPage } from "next";
 import React from "react";
 import TodoList from "../components/TodoList";
 import { TodoType } from "../types/todo";
 import { getTodosAPI } from "../lib/api/todo";
+import { wrapper } from "../store";
+import { todoActions } from "../store/todo";
 
 interface IProps {
   todos: TodoType[];
@@ -12,23 +14,38 @@ const app: NextPage<IProps> = ({ todos }) => {
   return <TodoList todos={todos} />;
 };
 
-export default app;
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  // console.log(process.env.NEXT_PUBLIC_API_URL);
-  try {
-    const { data } = await getTodosAPI();
-    return {
-      props: {
-        todos: data,
-      },
-    };
-  } catch (e) {
-    // console.log(e);
-    return {
-      props: {
-        todos: [],
-      },
-    };
+// redux-wrapper 7.0 이후의 방식
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    console.log(store);
+    // {
+    //   dispatch: [Function: dispatch],
+    //   subscribe: [Function: subscribe],
+    //   getState: [Function: getState],
+    //   replaceReducer: [Function: replaceReducer],
+    //   '@@observable': [Function: observable]
+    // }
+    try {
+      const { data } = await getTodosAPI();
+      store.dispatch(todoActions.setTodo(data));
+      return { props: { todos: data } };
+    } catch (e) {
+      return { props: { todos: [] } };
+    }
   }
-};
+);
+
+// 구버전 방식
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   async ({ store }) => {
+//     console.log(store);
+//     try {
+//       const { data } = await getTodosAPI();
+//       return { props: { todos: data } };
+//     } catch (e) {
+//       return { props: { todos: [] } };
+//     }
+//   }
+// );
+
+export default app;
