@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import AddTodo from "../components/AddTodo";
+import AddTodo from "../../components/AddTodo";
 
 const todo: NextPage = () => {
   return <AddTodo />;
