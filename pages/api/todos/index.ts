@@ -1,6 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { TodoType } from "../../../types/todo";
-import fs from 'fs';
 import Data from "../../../lib/data";
 
 
