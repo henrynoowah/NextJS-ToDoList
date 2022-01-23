@@ -52,11 +52,11 @@ const TodoHeader = styled.div`
       border-radius: 50%;
     }
   }
-
 `;
 
 const TodoListLastNumber = styled.p`
   font-size: 14px;
+  margin-bottom: 6px;
   span {
     margin-left: 8px;
   }

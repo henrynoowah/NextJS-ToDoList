@@ -1,7 +1,7 @@
+import Link from "next/link";
 import React, { FC } from "react";
 import styled from "styled-components";
 import palette from "../styles/palette";
-
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -14,7 +14,9 @@ const Container = styled.div`
 const Header: FC = () => {
   return (
     <Container>
-      <h1>Noowah's TodoList</h1>
+      <Link href="/" passHref>
+        <h1>Noowah's TodoList</h1>
+      </Link>
     </Container>
   );
 };
