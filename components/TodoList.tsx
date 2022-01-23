@@ -5,7 +5,6 @@ import { TodoType } from "../types/todo";
 import TrashCanIcon from "../public/static/svg/trash_can.svg";
 import CheckMarkIcon from "../public/static/svg/check_mark.svg";
 import { checkTodoAPI } from "../lib/api/todo";
-import todo from "../lib/data/todo";
 
 const Container = styled.div`
   width: 100%;
