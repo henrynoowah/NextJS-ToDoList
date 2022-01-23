@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import styled from "styled-components";
-import { addTodoApi } from "../lib/api/todo";
+import { addTodoAPI } from "../lib/api/todo";
 import BrushIcon from "../public/static/svg/brush.svg";
 import palette from "../styles/palette";
 import { TodoType } from "../types/todo";
@@ -97,7 +97,7 @@ const AddTodo: FC = () => {
         alert("색상과 할 일을 입력해주세요");
         return;
       }
-      await addTodoApi({ text, color: selectedColor });
+      await addTodoAPI({ text, color: selectedColor });
       console.log("추가했습니다");
       router.push("/");
     } catch (e) {
