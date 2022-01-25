@@ -17,14 +17,6 @@ const app: NextPage<IProps> = ({ todos }) => {
 // redux-wrapper 7.0 이후의 방식
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async () => {
-    console.log(store);
-    // {
-    //   dispatch: [Function: dispatch],
-    //   subscribe: [Function: subscribe],
-    //   getState: [Function: getState],
-    //   replaceReducer: [Function: replaceReducer],
-    //   '@@observable': [Function: observable]
-    // }
     try {
       const { data } = await getTodosAPI();
       store.dispatch(todosSliceActions.setTodo(data));
