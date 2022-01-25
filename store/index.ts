@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { HYDRATE, createWrapper } from "next-redux-wrapper"
-import todo from "./todo";
+import todosSlice from "./todo";
 
 const rootReducer = combineReducers({
-  todo
+  todo: todosSlice.reducer
 })
 
 // "__NEXT_REDUX_WRAPPER_HYDRATE__" 님 리듀서를 추가

@@ -4,7 +4,7 @@ import TodoList from "../components/TodoList";
 import { TodoType } from "../types/todo";
 import { getTodosAPI } from "../lib/api/todo";
 import { wrapper } from "../store";
-import { todoActions } from "../store/todo";
+import { todosSliceActions } from "../store/todo";
 
 interface IProps {
   todos: TodoType[];
@@ -27,7 +27,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     // }
     try {
       const { data } = await getTodosAPI();
-      store.dispatch(todoActions.setTodo(data));
+      store.dispatch(todosSliceActions.setTodo(data));
       return { props: { todos: data } };
     } catch (e) {
       return { props: { todos: [] } };
