@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const app: NextPage<IProps> = ({ todos }) => {
-  return <TodoList todos={todos} />;
+  return <TodoList />;
 };
 
 // redux-wrapper 7.0 이후의 방식
