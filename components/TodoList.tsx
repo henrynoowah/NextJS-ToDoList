@@ -5,6 +5,9 @@ import { TodoType } from "../types/todo";
 import TrashCanIcon from "../public/static/svg/trash_can.svg";
 import CheckMarkIcon from "../public/static/svg/check_mark.svg";
 import { checkTodoAPI, deleteTodoAPI } from "../lib/api/todo";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store";
+import { todosSliceActions } from "../store/todo";
 
 const Container = styled.div`
   width: 100%;
@@ -124,8 +127,9 @@ interface IProps {
   todos: TodoType[];
 }
 
-const TodoList: FC<IProps> = ({ todos }) => {
-  const [localTodos, setLocalTodos] = useState(todos);
+const TodoList: FC<IProps> = () => {
+  const todos = useSelector((store: RootState) => store.todo.todos);
+  const dispatch = useDispatch();
 
   const getTodoColorNums = useCallback(() => {
     let red = 0;
@@ -175,13 +179,15 @@ const TodoList: FC<IProps> = ({ todos }) => {
   const checkTodo = async (id: number) => {
     try {
       await checkTodoAPI(id);
-      const newTodos = localTodos.map((todo) => {
-        if (todo.id == id) {
+      const newTodos = todos.map((todo) => {
+        if (todo.id === id) {
           return { ...todo, checked: !todo.checked };
         }
         return todo;
       });
-      setLocalTodos(newTodos);
+      dispatch(todosSliceActions.setTodo(newTodos));
+      console.log("체크하였습니다");
+      // setLocalTodos(newTodos);
     } catch (e) {
       console.log(e);
     }
@@ -190,8 +196,8 @@ const TodoList: FC<IProps> = ({ todos }) => {
   const deleteTodo = async (id: number) => {
     try {
       await deleteTodoAPI(id);
-      const newTodos = localTodos.filter((todo) => todo.id !== id);
-      setLocalTodos(newTodos);
+      const newTodos = todos.filter((todo) => todo.id !== id);
+      dispatch(todosSliceActions.setTodo(newTodos));
       console.log("삭제했습니다");
     } catch (e) {
       console.log(e);
@@ -202,7 +208,7 @@ const TodoList: FC<IProps> = ({ todos }) => {
     <Container>
       <TodoHeader>
         <TodoListLastNumber>
-          남은 TODO <span>{localTodos.length}개</span>
+          남은 TODO <span>{todos.length}개</span>
         </TodoListLastNumber>
         <div className="todo-list-header-colors">
           {Object.keys(todoColorNums).map((color, index) => (
@@ -214,7 +220,7 @@ const TodoList: FC<IProps> = ({ todos }) => {
         </div>
       </TodoHeader>
       <List>
-        {localTodos.map((todo) => (
+        {todos.map((todo) => (
           <li className="todo-item" key={todo.id}>
             <div className="todo-left-side">
               <div className={`todo-color-block bg-${todo.color}`} />
