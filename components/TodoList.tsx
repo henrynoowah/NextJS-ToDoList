@@ -123,11 +123,7 @@ const List = styled.ul`
   }
 `;
 
-interface IProps {
-  todos: TodoType[];
-}
-
-const TodoList: FC<IProps> = () => {
+const TodoList: FC = () => {
   const todos = useSelector((store: RootState) => store.todo.todos);
   const dispatch = useDispatch();
 
